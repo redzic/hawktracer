@@ -14,6 +14,7 @@ option(ENABLE_DOC "Build documentation" ON)
 option(ENABLE_CLIENT "Enable client application for parsing HawkTracer stream" ON)
 option(ENABLE_PYTHON_BINDINGS "Enable Python bindings (requires ENABLE_CLIENT=ON)" OFF)
 option(ENABLE_THREADS "Enable multi-threading support in HawkTracer at compilation time" ON)
+option(ENABLE_POSIX_THREADS "Enable building with POSIX threads instead of C++11 threads" ON)
 
 option(ENABLE_TCP_LISTENER "Enable TCP listener in a core library" ON)
 option(FORCE_C_COMPILATION "Forces to build HawkTracer core library with C compiler" OFF)
@@ -63,6 +64,10 @@ if(ENABLE_RELEASE_MODE)
     set(ENABLE_EXAMPLES ON)
     set(ENABLE_PYTHON_BINDINGS ON)
 endif(ENABLE_RELEASE_MODE)
+
+if(ENABLE_POSIX_THREADS)
+    add_definitions(-DHT_THREAD_IMPL_POSIX)
+endif(ENABLE_POSIX_THREADS)
 
 include(warnings)
 
